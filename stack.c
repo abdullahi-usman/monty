@@ -27,10 +27,10 @@ stack_t *push(stack_t **stack, int n)
 		new_stack->prev = (*stack);
 		(*stack) = new_stack;
 
-		return (stack);
+		return (*stack);
 	}
 
-	return (push((*stack)->next, n));
+	return (push(&(*stack)->next, n));
 }
 
 /**
@@ -42,7 +42,7 @@ stack_t *pop(stack_t **stack)
 {
 	if (stack == NULL)
 	{
-		return (stack);
+		return (*stack);
 	}
 
 	if ((*stack)->next == NULL)
@@ -52,5 +52,5 @@ stack_t *pop(stack_t **stack)
 		return (*stack);
 	}
 
-	return (pop((*stack)->next));
+	return (pop(&(*stack)->next));
 }

@@ -14,13 +14,15 @@ int main(int argc, char **argv)
 	char *operations = NULL;
 	int c = 0;
 
+	(void)argc;
+
 	if (argv != NULL)
 	{
 		printf("encounter line %s:\n", *(argv));
 		argv++;
 
 		if (c == 1)
-		{bett
+		{
 			command = *(argv);
 		}
 		else if (c == 2)
@@ -29,5 +31,7 @@ int main(int argc, char **argv)
 		}
 	}
 
+	(void)command;
+	(void)operations;
 	return (0);
 }
