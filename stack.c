@@ -1,5 +1,6 @@
 #include <stdlib.h>
-#include "stack.h"
+#include <stdio.h>
+#include "monty.h"
 
 
 /**
@@ -12,8 +13,15 @@ stack_t *push(stack_t **stack, int n)
 {
 	stack_t *new_stack = NULL;
 
-	if (stack == NULL)
+	if (*stack == NULL)
 	{
+		new_stack = (stack_t *)malloc(sizeof(stack_t));
+		if (new_stack == NULL)
+		{
+			puts("Error: malloc failed\n");
+			exit(EXIT_FAILURE);
+		}
+		new_stack->n = n;
 		*stack = new_stack;
 		return (new_stack);
 	}
@@ -21,6 +29,11 @@ stack_t *push(stack_t **stack, int n)
 	if ((*stack)->next == NULL)
 	{
 		new_stack = (stack_t *)malloc(sizeof(stack_t));
+		if (new_stack == NULL)
+		{
+			puts("Error: malloc failed\n");
+			exit(EXIT_FAILURE);
+		}
 		new_stack->n = n;
 
 		(*stack)->next = new_stack;
@@ -40,17 +53,26 @@ stack_t *push(stack_t **stack, int n)
 */
 stack_t *pop(stack_t **stack)
 {
-	if (stack == NULL)
+	stack_t *ret_stack = NULL;
+
+	if (*stack == NULL)
 	{
 		return (*stack);
 	}
 
-	if ((*stack)->next == NULL)
+	ret_stack = *stack;
+
+	if ((*stack)->prev != NULL)
 	{
-		(*stack)->prev->next = NULL;
-		(*stack)->prev = NULL;
-		return (*stack);
+		*stack = (*stack)->prev;
+	}
+	else
+	{
+		*stack = NULL;
 	}
 
-	return (pop(&(*stack)->next));
+	ret_stack->next = NULL;
+	ret_stack->prev = NULL;
+
+	return (ret_stack);
 }
