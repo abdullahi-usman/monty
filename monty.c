@@ -7,6 +7,33 @@
 static const char *PUSH = "push";
 static const char *PALL = "pall";
 
+
+/**
+ * print_all - print all values
+ * @stack: the stack
+ * @rev: the rev
+ * Return: Void
+*/
+void print_all(stack_t *stack, int rev)
+{
+	if (stack != NULL)
+	{
+		printf("%d\n", stack->n);
+	}
+	else
+	{
+		return;
+	}
+
+	if (rev != -1)
+	{
+		print_all(stack->next, rev);
+	} else
+	{
+		print_all(stack->prev, rev);
+	}
+
+}
 /**
  * check_argc - check argc
  * @argc: the argc
@@ -111,10 +138,7 @@ int main(int argc, char **argv)
 			push(&stack, atoi(opcode));
 		else if (strcmp(command, PALL) == 0)
 		{
-			while ((ret_stack = pop(&stack)) != NULL)
-			{
-				printf("%d\n", ret_stack->n);
-			}
+			print_all(stack, -1);
 		}
 		command = NULL;
 		opcode = NULL;
