@@ -34,11 +34,30 @@ FILE *open_commandfile(char *file)
 	fd = fopen(file, "rb");
 	if (fd == NULL)
 	{
-		printf("Error: Can't open file %s\n", command_file);
+		printf("Error: Can't open file %s\n", file);
 		exit(EXIT_FAILURE);
 	}
 
 	return (fd);
+}
+
+void write_command_and_opcode(char *word_sep, char **command, char **opcode)
+{
+	char *word = NULL;
+	int word_pos = 0;
+
+	while ((word = strsep(&word_sep, " ")) != NULL)
+	{
+		if (strcmp(word, " ") == 0)
+			break;
+
+		else if (word_pos == 0)
+			*command = word;
+		else if (word_pos == 1)
+			*opcode = word;
+
+			word_pos++;
+	}
 }
 
 /**
@@ -50,7 +69,7 @@ FILE *open_commandfile(char *file)
 int main(int argc, char **argv)
 {
 	char *command_file = NULL, *command = NULL, *opcode = NULL;
-	int line_number = 0, word_pos = 0, buffer_size = sizeof(char) * 2000;
+	int line_number = 0, buffer_size = sizeof(char) * 2000;
 	char *buffer = (char *)malloc(buffer_size), *word_sep = NULL, *word = NULL;
 	FILE *fd = NULL;
 	stack_t *ret_stack = NULL, *stack = NULL;
@@ -73,19 +92,7 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			while ((word = strsep(&word_sep, " ")) != NULL)
-			{
-				if (strcmp(word, " ") == 0)
-					break;
-
-				if (word_pos == 0)
-					command = word;
-
-				if (word_pos == 1)
-					opcode = word;
-
-				word_pos++;
-			}
+			write_command_and_opcode(word_sep, &command, &opcode);
 		}
 
 		if (strcmp(command, PUSH) == 0)
@@ -97,7 +104,6 @@ int main(int argc, char **argv)
 				printf("%d\n", ret_stack->n);
 		}
 
-		word_pos = 0;
 		command = NULL;
 		opcode = NULL;
 	}
