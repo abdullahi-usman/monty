@@ -156,5 +156,6 @@ int main(int argc, char **argv)
 		command = NULL;
 		opcode = NULL;
 	}
+	free(buffer);
 	return (0);
 }
