@@ -10,11 +10,11 @@
 */
 void monty_trim(char **str)
 {
-	int i, len = 0;
+	int len = 0;
 
 	while (1)
 	{
-		if (isblank((**str)) != 0)
+		if (isspace((**str)) != 0)
 			++(*str);
 		else
 			break;
@@ -23,7 +23,7 @@ void monty_trim(char **str)
 	len = (int)strlen(*str);
 	while (1)
 	{
-		if (len > 0 && (isblank((*str)[--len])) != 0)
+		if (len > 0 && (isspace((*str)[--len])) != 0)
 			(*str)[len] = '\0';
 		else
 			break;
