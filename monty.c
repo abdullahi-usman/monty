@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 	int line_number = 0, buffer_size = sizeof(char) * 2000;
 	char *buffer = (char *)malloc(buffer_size), *word_sep = NULL;
 	FILE *fd = NULL;
-	stack_t *ret_stack = NULL, *stack = NULL;
+	stack_t *stack = NULL;
 
 	check_argc(argc);
 	command_file = *(++argv);
