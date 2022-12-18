@@ -25,7 +25,7 @@ void execute_command(stack_t **stack, char *command, char *opcode,
 	{
 		if (opcode == NULL)
 		{
-			printf("L%d: usage: push integer\n", line_number);
+			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 		push(stack, atoi(opcode));
@@ -46,7 +46,7 @@ void execute_command(stack_t **stack, char *command, char *opcode,
 	{
 		if (command == NULL || strcmp(command, "") != 0)
 		{
-			printf("L%d: %s unknown instruction %s\n",  line_number, command, opcode);
+			fprintf(stderr, "L%d: %s unknown instruction %s\n",  line_number, command, opcode);
 		}
 	}
 
@@ -60,7 +60,7 @@ void check_argc(int argc)
 {
 	if (argc != 2)
 	{
-		puts("USAGE: monty file");
+		fprintf(stderr, "USAGE: monty file");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -77,7 +77,7 @@ FILE *open_commandfile(char *file)
 	fd = fopen(file, "rb");
 	if (fd == NULL)
 	{
-		printf("Error: Can't open file %s\n", file);
+		fprintf(stderr, "Error: Can't open file %s\n", file);
 		exit(EXIT_FAILURE);
 	}
 

@@ -18,7 +18,7 @@ stack_t *push(stack_t **stack, int n)
 		new_stack = (stack_t *)malloc(sizeof(stack_t));
 		if (new_stack == NULL)
 		{
-			puts("Error: malloc failed\n");
+			fprintf(stderr, "Error: malloc failed\n");
 			exit(EXIT_FAILURE);
 		}
 		new_stack->n = n;
@@ -31,7 +31,7 @@ stack_t *push(stack_t **stack, int n)
 		new_stack = (stack_t *)malloc(sizeof(stack_t));
 		if (new_stack == NULL)
 		{
-			puts("Error: malloc failed\n");
+			fprintf(stderr, "Error: malloc failed\n");
 			exit(EXIT_FAILURE);
 		}
 		new_stack->n = n;
