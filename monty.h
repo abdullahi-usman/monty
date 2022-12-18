@@ -36,4 +36,5 @@ stack_t *pop(stack_t **stack);
 
 void monty_trim(char **str);
 void check_malloc(void *buffer);
+void print_all(stack_t *stack, int rev);
 #endif

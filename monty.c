@@ -6,33 +6,35 @@
 
 static const char *PUSH = "push";
 static const char *PALL = "pall";
+static const char *PINT = "pint";
+static const char *POP = "pop";
 
 
 /**
- * print_all - print all values
+ * execute_command - execute the command
  * @stack: the stack
- * @rev: the rev
+ * @command: the command
+ * @opcode: the opcode
  * Return: Void
 */
-void print_all(stack_t *stack, int rev)
+void execute_command(stack_t *stack, char *command, char *opcode)
 {
-	if (stack != NULL)
+	if (strcmp(command, PUSH) == 0)
+	{
+		push(&stack, atoi(opcode));
+	}
+	else if (strcmp(command, PALL) == 0)
+	{
+		print_all(stack, -1);
+	}
+	else if (strcmp(command, PINT) == 0)
 	{
 		printf("%d\n", stack->n);
 	}
-	else
+	else if (strcmp(command, POP) == 0)
 	{
-		return;
-	}
 
-	if (rev != -1)
-	{
-		print_all(stack->next, rev);
-	} else
-	{
-		print_all(stack->prev, rev);
 	}
-
 }
 /**
  * check_argc - check argc
@@ -134,12 +136,7 @@ int main(int argc, char **argv)
 			write_command_and_opcode(word_sep, &command, &opcode);
 		}
 
-		if (strcmp(command, PUSH) == 0)
-			push(&stack, atoi(opcode));
-		else if (strcmp(command, PALL) == 0)
-		{
-			print_all(stack, -1);
-		}
+		execute_command(stack, command, opcode);
 		command = NULL;
 		opcode = NULL;
 	}

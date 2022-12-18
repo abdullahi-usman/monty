@@ -76,3 +76,30 @@ stack_t *pop(stack_t **stack)
 
 	return (ret_stack);
 }
+
+/**
+ * print_all - print all values
+ * @stack: the stack
+ * @rev: the rev
+ * Return: Void
+*/
+void print_all(stack_t *stack, int rev)
+{
+	if (stack != NULL)
+	{
+		printf("%d\n", stack->n);
+	}
+	else
+	{
+		return;
+	}
+
+	if (rev != -1)
+	{
+		print_all(stack->next, rev);
+	} else
+	{
+		print_all(stack->prev, rev);
+	}
+
+}
