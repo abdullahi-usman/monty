@@ -42,6 +42,14 @@ void execute_command(stack_t **stack, char *command, char *opcode,
 	{
 
 	}
+	else
+	{
+		if (command == NULL || strcmp(command, "") != 0)
+		{
+			printf("L%d: %s unknown instruction %s\n",  line_number, command, opcode);
+		}
+	}
+
 }
 /**
  * check_argc - check argc
