@@ -17,19 +17,19 @@ static const char *POP = "pop";
  * @opcode: the opcode
  * Return: Void
 */
-void execute_command(stack_t *stack, char *command, char *opcode)
+void execute_command(stack_t **stack, char *command, char *opcode)
 {
 	if (strcmp(command, PUSH) == 0)
 	{
-		push(&stack, atoi(opcode));
+		push(stack, atoi(opcode));
 	}
 	else if (strcmp(command, PALL) == 0)
 	{
-		print_all(stack, -1);
+		print_all(*stack, -1);
 	}
 	else if (strcmp(command, PINT) == 0)
 	{
-		printf("%d\n", stack->n);
+		printf("%d\n", (*stack)->n);
 	}
 	else if (strcmp(command, POP) == 0)
 	{
@@ -136,7 +136,7 @@ int main(int argc, char **argv)
 			write_command_and_opcode(word_sep, &command, &opcode);
 		}
 
-		execute_command(stack, command, opcode);
+		execute_command(&stack, command, opcode);
 		command = NULL;
 		opcode = NULL;
 	}
