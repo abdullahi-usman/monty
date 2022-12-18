@@ -15,12 +15,19 @@ static const char *POP = "pop";
  * @stack: the stack
  * @command: the command
  * @opcode: the opcode
+ * @line_number: the line number
  * Return: Void
 */
-void execute_command(stack_t **stack, char *command, char *opcode)
+void execute_command(stack_t **stack, char *command, char *opcode,
+					 int line_number)
 {
 	if (strcmp(command, PUSH) == 0)
 	{
+		if (opcode == NULL)
+		{
+			printf("L%d: usage: push integer\n", line_number);
+			exit(EXIT_FAILURE);
+		}
 		push(stack, atoi(opcode));
 	}
 	else if (strcmp(command, PALL) == 0)
@@ -94,6 +101,7 @@ void write_command_and_opcode(char *word_sep, char **command, char **opcode)
 		else if (word_pos == 1)
 		{
 			*opcode = word;
+			break;
 		}
 
 		word_pos++;
@@ -136,7 +144,7 @@ int main(int argc, char **argv)
 			write_command_and_opcode(word_sep, &command, &opcode);
 		}
 
-		execute_command(&stack, command, opcode);
+		execute_command(&stack, command, opcode, line_number);
 		command = NULL;
 		opcode = NULL;
 	}
